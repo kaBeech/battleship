@@ -11,6 +11,7 @@ import GameSetup, { GameSettings } from './GameSetup';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import './Transitions.css';
 import GameOverScreen from './GameOverScreen';
+import { API_BASE_URL } from 'config';
 
 const BOARD_SIZE = 10;
 const SHIPS = [
@@ -22,7 +23,7 @@ const SHIPS = [
 ];
 
 const createEmptyBoard = (): BoardType => {
-  return Array(BOARD_SIZE).fill(null).map(() => 
+  return Array(BOARD_SIZE).fill(null).map(() =>
     Array(BOARD_SIZE).fill('empty' as CellState)
   );
 };
@@ -98,7 +99,7 @@ const Game: React.FC = () => {
     const shipPositions: Position[] = [];
 
     for (let i = 0; i < currentShip.size; i++) {
-      const pos: Position = isHorizontal 
+      const pos: Position = isHorizontal
         ? { x: position.x + i, y: position.y }
         : { x: position.x, y: position.y + i };
       newBoard[pos.y][pos.x] = 'ship';
@@ -133,7 +134,7 @@ const Game: React.FC = () => {
 
   const startNewGame = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/game/new', {
+      const response = await fetch(`${API_BASE_URL}/api/game/new`, {
         method: 'POST',
       });
       const data = await response.json();
@@ -148,18 +149,18 @@ const Game: React.FC = () => {
 
   const handlePlayerMove = async (position: Position): Promise<void> => {
     if (!gameId || !gameState.isPlayerTurn || gameState.gameOver || placementPhase) {
-      console.log("Move rejected:", { 
-        gameId, 
-        isPlayerTurn: gameState.isPlayerTurn, 
+      console.log("Move rejected:", {
+        gameId,
+        isPlayerTurn: gameState.isPlayerTurn,
         gameOver: gameState.gameOver,
-        placementPhase 
+        placementPhase
       });
       return;
     }
 
     try {
       console.log("Making move:", { gameId, position });
-      const response = await fetch(`http://localhost:5000/api/game/${gameId}/move`, {
+      const response = await fetch(`${API_BASE_URL}/api/game/${gameId}/move`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +174,7 @@ const Game: React.FC = () => {
       console.log("Response status:", response.status);
       const result = await response.json();
       console.log("Move result:", result);
-      
+
       // Update opponent board based on move result
       const newOpponentBoard = [...gameState.opponentBoard];
       newOpponentBoard[position.y][position.x] = result.hit ? 'hit' : 'miss';
@@ -201,10 +202,10 @@ const Game: React.FC = () => {
 
   const makeOpponentMove = async (): Promise<void> => {
     setIsAiThinking(true);
-    
+
     // Simulate AI thinking time
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const move = ai.makeMove(gameState.playerBoard);
     setAiMovePosition(move);
     setIsAiThinking(false);
@@ -239,7 +240,7 @@ const Game: React.FC = () => {
   };
 
   const isGameOver = (board: BoardType): boolean => {
-    return !board.some(row => 
+    return !board.some(row =>
       row.some(cell => cell === 'ship')
     );
   };
@@ -334,7 +335,7 @@ const Game: React.FC = () => {
               onDifficultyChange={handleDifficultyChange}
             />
           )}
-          
+
           {placementPhase ? (
             <div className="board-section">
               <div className="placement-info">
@@ -346,12 +347,12 @@ const Game: React.FC = () => {
                   Press 'R' to rotate ship (Current: {isHorizontal ? 'Horizontal' : 'Vertical'})
                 </p>
               </div>
-              <div 
+              <div
                 onMouseLeave={handleBoardLeave}
                 className="board-wrapper"
               >
-                <Board 
-                  board={gameState.playerBoard} 
+                <Board
+                  board={gameState.playerBoard}
                   onCellClick={handlePlaceShip}
                   onCellHover={handleBoardHover}
                   previewCells={previewCells}
@@ -366,18 +367,18 @@ const Game: React.FC = () => {
             <div className="boards-container">
               <div className="board-section">
                 <h2 className="board-title">Your Board</h2>
-                <Board 
-                  board={gameState.playerBoard} 
-                  onCellClick={() => {}}
+                <Board
+                  board={gameState.playerBoard}
+                  onCellClick={() => { }}
                   isAiThinking={isAiThinking}
                   aiMovePosition={aiMovePosition}
                 />
               </div>
-              
+
               <div className="board-section">
                 <h2 className="board-title">Opponent's Board</h2>
-                <Board 
-                  board={gameState.opponentBoard} 
+                <Board
+                  board={gameState.opponentBoard}
                   onCellClick={handlePlayerMove}
                 />
               </div>
@@ -385,7 +386,7 @@ const Game: React.FC = () => {
           )}
 
           {gameState.gameOver && (
-            <button 
+            <button
               className="game-button"
               onClick={resetGame}
             >
@@ -402,7 +403,7 @@ const Game: React.FC = () => {
           <VolumeControl />
         </div>
       )}
-      
+
       {showGameOver && (
         <GameOverScreen
           isVictory={isVictory}
