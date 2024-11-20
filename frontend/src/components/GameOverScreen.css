@@ -1,0 +1,149 @@
+.game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+}
+
+.game-over-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 500px;
+  width: 90%;
+}
+
+.game-over-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.victory .game-over-title {
+  color: #27ae60;
+}
+
+.defeat .game-over-title {
+  color: #c0392b;
+}
+
+.game-over-message {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.play-again-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.play-again-button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Transition Animations */
+.game-over-enter {
+  opacity: 0;
+}
+
+.game-over-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.game-over-exit {
+  opacity: 1;
+}
+
+.game-over-exit-active {
+  opacity: 0;
+  transition: opacity 1000ms ease-out;
+}
+
+/* Additional animations for victory/defeat specific effects */
+.victory .firework {
+  animation: victoryExplode 1.5s ease-out infinite;
+}
+
+.defeat .firework {
+  animation: defeatExplode 1.5s ease-out infinite;
+}
+
+@keyframes victoryExplode {
+  0% {
+    box-shadow: 0 0 4px #27ae60;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px #27ae60;
+    transform: scale(1.5);
+  }
+  100% {
+    box-shadow: 0 0 4px #27ae60;
+    transform: scale(1);
+  }
+}
+
+@keyframes defeatExplode {
+  0% {
+    box-shadow: 0 0 4px #c0392b;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px #c0392b;
+    transform: scale(1.5);
+  }
+  100% {
+    box-shadow: 0 0 4px #c0392b;
+    transform: scale(1);
+  }
+} 

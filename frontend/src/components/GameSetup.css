@@ -1,0 +1,146 @@
+.game-setup {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.5s ease-out;
+}
+
+.game-setup h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 100ms; }
+.form-group:nth-child(2) { animation-delay: 200ms; }
+.form-group:nth-child(3) { animation-delay: 300ms; }
+.form-group:nth-child(4) { animation-delay: 400ms; }
+.form-group:nth-child(5) { animation-delay: 500ms; }
+
+.form-group label {
+  color: #34495e;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group select {
+  padding: 0.8rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+  border-color: #3498db;
+  outline: none;
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+.form-group.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.form-group.checkbox:hover {
+  transform: translateX(5px);
+}
+
+.start-button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 600ms forwards;
+}
+
+.start-button:hover {
+  background-color: #219a52;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: pulse 1s infinite;
+}
+
+.start-button:active {
+  transform: translateY(0);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-setup {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .game-setup h1 {
+    font-size: 2rem;
+  }
+} 

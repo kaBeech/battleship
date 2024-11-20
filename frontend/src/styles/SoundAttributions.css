@@ -1,0 +1,33 @@
+.sound-attributions {
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.sound-attributions h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.attribution-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.attribution-item {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.attribution-item a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.attribution-item a:hover {
+  text-decoration: underline;
+} 
